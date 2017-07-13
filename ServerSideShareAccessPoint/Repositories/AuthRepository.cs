@@ -43,6 +43,7 @@ namespace ServerSideShareAccessPoint.Repositories
             account.AccountBalance = new AccountBalance()
             {
                 Balance = 0,
+                GuidVersion = Guid.NewGuid().ToByteArray(),
             };
             var result = await _userManager.CreateAsync(account, password);
             return result;
