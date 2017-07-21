@@ -60,6 +60,7 @@ namespace ServerSideShareAccessPoint.Controllers
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
                 Account account = await _authRepo.FindUserById(id, User.Identity.Name);
+                account.AccountInfo.FullName += " Test Deploy with Jenkin";
                 var response = Request.CreateResponse(HttpStatusCode.OK, account);
                 response.Headers.ETag = new System.Net.Http.Headers.EntityTagHeaderValue("\"" + Convert.ToBase64String(account.AccountBalance.GuidVersion, Base64FormattingOptions.None) + "\"");
                 return response;
