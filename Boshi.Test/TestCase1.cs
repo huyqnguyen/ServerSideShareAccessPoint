@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System.Text;
+using OpenQA.Selenium.Firefox;
 
 namespace Boshi.Tests
 {
@@ -21,8 +22,8 @@ namespace Boshi.Tests
         [SetUp]
         public void SetupTest()
         {
-            driver = new ChromeDriver();
-            javaScriptExecutor = (IJavaScriptExecutor)driver;
+            driver = new FirefoxDriver();
+            //javaScriptExecutor = (IJavaScriptExecutor)driver;
             baseURL = "http://localhost:52057/";
             verificationErrors = new StringBuilder();
             wait = new WebDriverWait(driver, new TimeSpan(0, 3, 0));
@@ -57,16 +58,14 @@ namespace Boshi.Tests
             wait.Until(ExpectedConditions.ElementToBeClickable(By.LinkText("編集"))).Click();
             wait.Until(ExpectedConditions.ElementExists(By.Id("Name"))).Clear();
             driver.FindElement(By.Id("Name")).SendKeys("Dan");
-            //driver.FindElement(By.Id("Sex")).Click();
+            driver.FindElement(By.Id("Sex")).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("li > label"))).Click();
-            //driver.FindElement(By.CssSelector("li > label")).Click();
+            driver.FindElement(By.CssSelector("li > label")).Click();
             new SelectElement(driver.FindElement(By.Id("BirthDay"))).SelectByText("3");
             new SelectElement(driver.FindElement(By.Id("Rh"))).SelectByText("＋");
             wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("Forward"))).Click();
             Thread.Sleep(15000);
             driver.FindElement(By.Name("Forward")).Click();
-            //javaScriptExecutor.ExecuteScript("$(\"[name=\'Forward\']\").click()");
-            //javaScriptExecutor.ExecuteScript("alert('12345678')");
             wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a.link-02 > div"))).Click();
             wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("i.glyphicon.glyphicon-icon_hamburger"))).Click();
             Thread.Sleep(2000);
